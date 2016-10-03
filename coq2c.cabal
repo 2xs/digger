@@ -1,0 +1,33 @@
+name:                coq2c
+version:             0.1.0.0
+synopsis:            compile some monadic Coq code into C code
+description:         Compile Coq code written in an imperative style
+                     using a monad into the corresponding C code.
+                     Start from the Coq code extracted as JSON by the
+                     internal extraction facility.
+
+license:             OtherLicense
+license-file:        LICENSE
+
+author:              Veïs Oudjail <veis.oudjail@gmail.com>
+maintainer:          Samuel Hym <samuel.hym+bugs@rustyne.lautre.net>
+copyright:           Université Lille 1, Veïs Oudjail
+
+category:            Language
+
+build-type:          Simple
+
+extra-source-files:  Readme.md
+
+cabal-version:       >=1.10
+
+executable coq2c
+  main-is:             coq2c.hs
+  other-extensions:    OverloadedStrings
+  build-depends:       base >=4.7 && <4.9,
+                       aeson >=0.11 && <0.12,
+                       split >=0.2 && <0.3,
+                       optparse-applicative >=0.12 && <0.13,
+                       regex-posix >=0.95 && <0.96,
+                       bytestring >=0.10 && <0.11
+  default-language:    Haskell2010
