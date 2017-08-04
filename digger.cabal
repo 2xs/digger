@@ -1,0 +1,54 @@
+name:                digger
+version:             0.2.0.0
+synopsis:            convert "C-style" Coq code into C code or an
+                     intermediate representation in Coq
+description:         Convert Coq code written in a "C-style"
+                     (imperative style based on a monad, with full
+                     application of functions) into the corresponding
+                     C code or to an intermediate representation
+                     (deep) output as Coq source code.
+                     Start from the Coq code extracted as JSON by the
+                     internal extraction facility.
+
+license:             OtherLicense
+license-file:        LICENSE
+
+author:              Samuel Hym, Veïs Oudjail
+maintainer:          samuel.hym@univ-lille1.fr
+copyright:           2016-2017 Université Lille 1, Veïs Oudjail
+category:            Language
+build-type:          Simple
+extra-source-files:  Readme.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Language.Coq.ExtractedAST,
+                       Language.Coq.Deep
+  build-depends:       base >=4.9 && <4.10,
+                       aeson >=0.11 && <1.1,
+                       containers >= 0.5.7 && <0.6,
+                       bytestring >=0.10 && <0.11,
+                       data-default >= 0.7 && < 0.8,
+                       text >= 1.2 && < 1.3,
+                       wl-pprint-text >= 1.1 && < 1.2,
+                       language-c >= 0.5 && < 0.6,
+                       pretty >= 1.1 && < 1.2
+  default-language:    Haskell2010
+
+executable digger
+  main-is:             digger.hs
+  hs-source-dirs:      app
+  other-modules:       Paths_digger
+  build-depends:       base >=4.9 && <4.10,
+                       aeson >=0.11 && <1.1,
+                       containers >= 0.5.7 && <0.6,
+                       bytestring >=0.10 && <0.11,
+                       data-default >= 0.7 && < 0.8,
+                       optparse-applicative >=0.12 && <0.14,
+                       text >= 1.2 && < 1.3,
+                       wl-pprint-text >= 1.1 && < 1.2,
+                       pretty >= 1.1 && < 1.2,
+                       language-c >= 0.5 && < 0.6,
+                       digger
+  default-language:    Haskell2010
