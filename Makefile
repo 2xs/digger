@@ -1,3 +1,6 @@
+DIGGER := ./digger
+
+# Generic targets, building everything
 default: default_message build_stack
 
 default_message:
@@ -8,15 +11,26 @@ default_message:
 
 build_stack:
 	stack build
-	ln -sf $$(find .stack-work/install/ -name coq2c -type f) coq2c
+	ln -sf $$(stack exec which digger) digger
 
 build_cabal:
 	cabal build
-	ln -sf dist/build/coq2c/coq2c coq2c
+	ln -sf dist/build/digger/digger digger
 
 clean:
 	stack clean || true
 	cabal clean || true
-	rm -rf coq2c .stack-work dist
+	rm -rf digger .stack-work dist
 
 .PHONY: default default_message build_stack build_cabal clean
+
+# Default to stack for precise targets
+digger: app/digger.hs $(wildcard src/Coq/*.hs)
+	stack build digger:exe:digger
+	ln -sf $$(stack exec which digger) digger
+
+# Documentation
+doc:
+	stack haddock
+
+.PHONY: doc
