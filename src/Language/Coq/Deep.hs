@@ -64,6 +64,7 @@ import           Data.Either                  (partitionEithers)
 import qualified Data.Map                     as Map
 import           Data.Maybe                   (catMaybes, fromJust, fromMaybe,
                                                isJust, maybeToList)
+import           Data.Monoid                  ((<>))
 import qualified Data.Set                     as Set
 import           Data.Text.Lazy               (Text)
 import qualified Data.Text.Lazy               as Text
@@ -74,7 +75,7 @@ import           Text.PrettyPrint.Leijen.Text (Doc, dquotes, empty, enclose,
                                                line, lparen, nest, parens,
                                                rbracket, rparen, semi, sep,
                                                space, text, tupled, vcat, vsep,
-                                               (<+>), (</>), (<>))
+                                               (<+>), (</>))
 import qualified Text.PrettyPrint.Leijen.Text as PP
 
 import           Language.Coq.ExtractedAST
