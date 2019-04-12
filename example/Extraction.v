@@ -29,6 +29,7 @@
    describe sequential computations. *)
 
 Require Import Internals Example.
+Require Extraction.
 Extraction Language JSON.
 Extraction Library Internals.
 Extraction Library Example.
