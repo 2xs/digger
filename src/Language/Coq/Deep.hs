@@ -60,6 +60,7 @@ module Language.Coq.Deep (
 
 import           Control.Arrow                (second, (&&&))
 import           Control.Monad.Except
+import           Control.Monad.State
 import           Data.Default
 import           Data.Either                  (partitionEithers)
 import qualified Data.Map                     as Map
@@ -200,6 +201,8 @@ data ConversionParams = CP
         , prefixVTyp   :: Text                  -- ^ Prefix for value types
 
         , recBoundName :: Name                  -- ^ Name of the recursive-bound variable in generated C
+        , prefixTmp    :: Name                  -- ^ Prefix for the names of parameters and local variables
+                                                --   that need to be reintroduced by eta-expansion
         , unaryOps     :: Map.Map FId CUnaryOp  -- ^ Map from Coq functions to C unary operators
         , binaryOps    :: Map.Map FId CBinaryOp -- ^ Map from Coq functions to C binary operators
         }
@@ -224,6 +227,7 @@ instance Default ConversionParams where
              , prefixVTyp   = "deepVTyp_"
 
              , recBoundName = "rec_bound"
+             , prefixTmp    = "digger_tmp_"
              , unaryOps     = Map.fromList [("negb",CNegOp)]
              , binaryOps    = Map.fromList [("andb",CLndOp)
                                            ,("orb", CLorOp)]
@@ -329,13 +333,17 @@ convertFunType cp = go
 -- - constructors for inline booleans
 
 convertFunBody :: ConversionParams -> Expr -> Either ErrorMsg Exp
-convertFunBody cp = runExcept . go True
+convertFunBody cp = runExcept . flip evalStateT 0 . go True
     where -- | Translate an expression
           -- Take as first argument whether the expression is monadic
           -- or not
-          go :: Bool -> Expr -> Except ErrorMsg Exp
+          go :: Bool -> Expr -> StateT Int (Except ErrorMsg) Exp
           go True  (Apply (Global b) [e1, Lambda ["_"] e2]) | b == bind cp = BindN          <$> go True e1 <*> go True e2
           go True  (Apply (Global b) [e1, Lambda [v] e2])   | b == bind cp = Bind v Nothing <$> go True e1 <*> go True e2
+          go True  (Apply (Global b) [e1, Global n])        | b == bind cp = do v <- freshVar
+                                                                                Bind v Nothing
+                                                                                  <$> go True e1
+                                                                                  <*> go True (Apply (Global n) [Rel v])
           go True  (Apply (Global r) [e])                   | r == ret  cp = Return <$> go False e
           go _     (Apply (Global f) as)                                   = Call f <$> traverse (go False) as
           go True  (Global v)                                              = pure (Call v [])
@@ -351,6 +359,10 @@ convertFunBody cp = runExcept . go True
           go False (ConstructorE c []) | c `elem` consts cp                = pure (Const c)
 
           go monadic e                                                     = throwError $ impossibleExpr monadic e
+
+          freshVar = do c <- get
+                        put (c+1)
+                        pure (prefixTmp cp ++ show c)
 
           impossibleExpr m ex = "Impossible to convert expression \"" ++ show ex ++ "\" " ++
                                 "in " ++ prefix m ++ "monadic context"

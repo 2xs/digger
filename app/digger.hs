@@ -158,6 +158,7 @@ optsCP = CP <$> optMonad
             <*> optPrefixVTyp
 
             <*> optRecBound
+            <*> pure (prefixTmp def)
             <*> pure (unaryOps def)
             <*> pure (binaryOps def)
 
