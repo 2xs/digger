@@ -416,6 +416,12 @@ convertDecl cp recs syms = go
 
           ignores' = Set.fromList (ignores cp)
 
+          arrowDepth (Arrow _ r) = 1 + arrowDepth r
+          arrowDepth _           = 0
+
+          base' nam typ@Arrow{} (Lambda [] body@(Global _)) = base' nam typ lam'
+             where args = map ((prefixTmp cp ++) . show) [0 .. arrowDepth typ - 1]
+                   lam' = Lambda args $ Apply body $ map Rel args
           base' nam typ ex | Set.member nam ignores' = Right []
                            | otherwise               = case base nam typ ex of
                                                          Left err -> Left $ "Error in " ++ nam ++ ": " ++ err
