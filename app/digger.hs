@@ -158,7 +158,7 @@ optsCP = CP <$> optMonad
             <*> optPrefixVTyp
 
             <*> optRecBound
-            <*> pure (prefixTmp def)
+            <*> optPrefixTmp
             <*> pure (unaryOps def)
             <*> pure (binaryOps def)
 
@@ -180,6 +180,10 @@ optsCP = CP <$> optMonad
 
           optIgnores    = many $ strOption $ long "ignore" <> metavar "<symb>"
                                           <> help "symbol to ignore (do not try to convert it)"
+
+          optPrefixTmp   = strOption $ short 'a' <> long "prefix-autovars"
+                           <> value (prefixTmp def) <> showDefaultWith id
+                           <> help "prefix for automatically-generated variables"
 
           optPrefixConst = optPref "prefix-const" (prefixConst def) "prefix for exported constructor names"
           optPrefixFun   = optPref "prefix-fun"   (prefixFun def)   "prefix for exported function names"
