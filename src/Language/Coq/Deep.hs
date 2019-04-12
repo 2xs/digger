@@ -59,6 +59,7 @@ module Language.Coq.Deep (
     ) where
 
 import           Control.Arrow                (second, (&&&))
+import           Control.Monad.Except
 import           Data.Default
 import           Data.Either                  (partitionEithers)
 import qualified Data.Map                     as Map
@@ -328,18 +329,18 @@ convertFunType cp = go
 -- - constructors for inline booleans
 
 convertFunBody :: ConversionParams -> Expr -> Either ErrorMsg Exp
-convertFunBody cp = go True
+convertFunBody cp = runExcept . go True
     where -- | Translate an expression
           -- Take as first argument whether the expression is monadic
           -- or not
-          go :: Bool -> Expr -> Either ErrorMsg Exp
+          go :: Bool -> Expr -> Except ErrorMsg Exp
           go True  (Apply (Global b) [e1, Lambda ["_"] e2]) | b == bind cp = BindN          <$> go True e1 <*> go True e2
           go True  (Apply (Global b) [e1, Lambda [v] e2])   | b == bind cp = Bind v Nothing <$> go True e1 <*> go True e2
           go True  (Apply (Global r) [e])                   | r == ret  cp = Return <$> go False e
           go _     (Apply (Global f) as)                                   = Call f <$> traverse (go False) as
-          go True  (Global v)                                              = Right (Call v [])
-          go False (Global v)                                              = Right (Var v)
-          go False (Rel v)                                                 = Right (Var v)
+          go True  (Global v)                                              = pure (Call v [])
+          go False (Global v)                                              = pure (Var v)
+          go False (Rel v)                                                 = pure (Var v)
           go True  (Case cond [C (ConstructorP c1 []) e1
                               ,C (ConstructorP c2 []) e2])  | checkIFT     = IfThenElse <$> go False cond
                                                                                         <*> go True thenE
@@ -347,9 +348,9 @@ convertFunBody cp = go True
                       where checkIFT = c1 == true  cp && c2 == false cp
                                     || c1 == false cp && c2 == true  cp
                             (thenE,elseE) = if c1 == true cp then (e1,e2) else (e2,e1)
-          go False (ConstructorE c []) | c `elem` consts cp                = Right (Const c)
+          go False (ConstructorE c []) | c `elem` consts cp                = pure (Const c)
 
-          go monadic e                                                     = Left $ impossibleExpr monadic e
+          go monadic e                                                     = throwError $ impossibleExpr monadic e
 
           impossibleExpr m ex = "Impossible to convert expression \"" ++ show ex ++ "\" " ++
                                 "in " ++ prefix m ++ "monadic context"
