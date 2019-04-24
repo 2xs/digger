@@ -7,10 +7,14 @@ representation (deep) output as Coq source code. It starts from the
 Coq code extracted as JSON by the internal extraction facility.
 
 
-The source code is copyright Université de Lille 1 & Veïs Oudjail and
+The source code is copyright Université de Lille & Veïs Oudjail and
 covered by CeCILL-A licence, see `LICENSE`.
 
 The development team is:
 
 *   Samuel Hym
 *   Veïs Oudjail
+
+
+The directory `example/` contains the source code for a small example
+of its use. This example works (at least) with Coq 8.9.
