@@ -25,9 +25,9 @@ library
   hs-source-dirs:      src
   exposed-modules:     Language.Coq.ExtractedAST,
                        Language.Coq.Deep
-  build-depends:       base >=4.9 && <4.12,
-                       aeson >=0.11 && <1.4,
-                       containers >=0.5.7 && <0.6,
+  build-depends:       base >=4.9 && <4.13,
+                       aeson >=0.11 && <1.5,
+                       containers >=0.5.7 && <0.7,
                        mtl >=2.2 && <2.3,
                        bytestring >=0.10 && <0.11,
                        data-default >=0.7 && <0.8,
@@ -41,9 +41,9 @@ executable digger
   main-is:             digger.hs
   hs-source-dirs:      app
   other-modules:       Paths_digger
-  build-depends:       base >=4.9 && <4.12,
-                       aeson >=0.11 && <1.4,
-                       containers >=0.5.7 && <0.6,
+  build-depends:       base >=4.9 && <4.13,
+                       aeson >=0.11 && <1.5,
+                       containers >=0.5.7 && <0.7,
                        bytestring >=0.10 && <0.11,
                        data-default >=0.7 && <0.8,
                        optparse-applicative >=0.12 && <0.15,
