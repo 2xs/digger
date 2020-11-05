@@ -30,6 +30,8 @@
 #include "base.h"
 #include "Monad.h"
 
+unsigned bound = 10;
+
 bool ready() {
     return state % 2 == 0;
 }

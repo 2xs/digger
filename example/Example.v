@@ -45,6 +45,8 @@ Fixpoint prepare recBound : M unit :=
                       prepare b
   end.
 
+Definition fullPrepare := prepare bound.
+
 Eval compute in runM (id true) 12.
 Eval compute in runM (neg true) 12.
 Eval compute in runM (prepare 1) 1.

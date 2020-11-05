@@ -31,6 +31,8 @@
 Require Import Nat Monad.
 Open Scope monad_scope.
 
+Parameter bound : nat.
+
 Definition ready : M bool :=
   do s <- get ;
      returnM (even s).

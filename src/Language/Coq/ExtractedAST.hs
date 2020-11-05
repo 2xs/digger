@@ -56,7 +56,7 @@ data FixgrpT = ItemFT
     deriving (Show,Eq)
 data TypeT   = ArrowTT | GlobTT | VaridxTT
     deriving (Show,Eq)
-data ExprT   = LambdaET| ApplyET | GlobalET | ConstructorET | RelET | CaseET | LetET
+data ExprT   = LambdaET| ApplyET | GlobalET | ConstructorET | RelET | CaseET | LetET | AxiomET
     deriving (Show,Eq)
 data PatT    = ConstructorPT | WildPT
     deriving (Show,Eq)
@@ -80,6 +80,7 @@ toWhatType strType =
     "expr:rel"         -> pure $ ExprT   RelET
     "expr:case"        -> pure $ ExprT   CaseET
     "expr:let"         -> pure $ ExprT   LetET
+    "expr:axiom"       -> pure $ ExprT   AxiomET
     "pat:constructor"  -> pure $ PatT    ConstructorPT
     "pat:wild"         -> pure $ PatT    WildPT
     strError           -> fail $ "Error: WhatType \"" ++ strError ++ "\" undefined"
@@ -179,6 +180,7 @@ data Expr = Lambda       { argnamesLambda :: [Name]
                          , namevalLet :: Expr
                          , bodyLet    :: Expr
                          }
+          | Axiom
     deriving (Show,Eq)
 
 instance Renamable Expr where
@@ -189,6 +191,7 @@ instance Renamable Expr where
     rename f (Rel n)             = Rel (f n)
     rename f (Case e cs)         = Case (rename f e) (map (rename f) cs)
     rename f (Let n v b)         = Let (f n) (rename f v) (rename f b)
+    rename _ Axiom               = Axiom
 
 instance FromJSON Expr where
   parseJSON (Object v) = do
@@ -201,6 +204,7 @@ instance FromJSON Expr where
       ExprT RelET         -> Rel          <$> v .: "name"
       ExprT CaseET        -> Case         <$> v .: "expr" <*> v .: "cases"
       ExprT LetET         -> Let          <$> v .: "name" <*> v .: "nameval" <*> v .: "body"
+      ExprT AxiomET       -> pure Axiom
       _                   -> fail "Error: Expr case undefined"
   parseJSON _             =  fail "Error: Expr kind undefined"
 
@@ -512,6 +516,7 @@ extractRecCalls cn self recs expr = deDup <$> isConsistent (go expr)
                                         pure (calls ++ calls', let'')
           go e@(Global _)          = pure ([], e)
           go e@(Rel _)             = pure ([], e)
+          go e@Axiom               = pure ([], e)
 
           drills f exprs = do (calls, exprs') <- unzip <$> traverse go exprs
                               pure (concat calls, f exprs')

@@ -27,5 +27,6 @@
 
 /* This C header provides the prototypes for the "primitive" functions */
 
+extern unsigned bound;
 bool ready();
 void getReady();
