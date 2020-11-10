@@ -321,7 +321,7 @@ infoDependency cp cleanOpts (prefix, modul) = (go syms, go recs)
     where modul' = cleanAST cleanOpts modul
           syms   = extractSymbolTable cp $ declarationsMod modul'
           recs   = detectBounds (nats cp) modul'
-          go     = Map.mapKeys (prefix ++)
+          go     = if null prefix then id else Map.mapKeys ((prefix ++ "_") ++)
 
 main :: IO ()
 main = do progname <- getProgName
