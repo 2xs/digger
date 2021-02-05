@@ -14,8 +14,8 @@ build_stack:
 	ln -sf $$(stack exec which digger) digger
 
 build_cabal:
-	cabal build
-	ln -sf dist/build/digger/digger digger
+	cabal v2-build
+	ln -sf $$(cabal v2-exec which digger) digger
 
 clean:
 	stack clean || true
