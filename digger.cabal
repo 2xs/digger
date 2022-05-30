@@ -15,7 +15,7 @@ license-file:        LICENSE
 
 author:              Samuel Hym, Veïs Oudjail
 maintainer:          samuel.hym@univ-lille.fr
-copyright:           2016-2021 Université de Lille, Veïs Oudjail
+copyright:           2016-2022 Université de Lille, Veïs Oudjail
 category:            Language
 build-type:          Simple
 extra-source-files:  Readme.md

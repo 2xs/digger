@@ -1,9 +1,9 @@
 -- |
 -- Module      :  digger (Main)
--- Copyright   :  Université Lille 1, Veïs Oudjail, 2016-2017
+-- Copyright   :  Université de Lille, Veïs Oudjail, 2016-2022
 -- License     :  CeCILL
 --
--- Maintainer  :  samuel.hym@univ-lille1.fr
+-- Maintainer  :  samuel.hym@univ-lille.fr
 
 -- Stability   :  experimental
 -- Portability :  portable
