@@ -250,13 +250,16 @@ type SymbolTable = Map.Map Id VTyp
 
 -- | Extract the "symbol type"
 --
--- * if it is a function, the type of the value it returns
+-- * if it is a monadic function, the type of the value inside the
+--   monad
+-- * if it is a non-monadic function, the type of the value it returns
 -- * if it is a global variable, its type
 extractSymbolType :: ConversionParams -> Type -> Either ErrorMsg VTyp
 extractSymbolType  _ (Glob ty []) = pure ty
 extractSymbolType cp typ          = go typ
     where go (Arrow _ ty)                          = go ty
           go (Glob m [Glob ty []]) | m == monad cp = pure ty
+          go (Glob ty [])                          = pure ty
           go ty                                    = Left $ impossibleType ty
 
           impossibleType ty = "Impossible to extract symbol type of: " ++ show ty
