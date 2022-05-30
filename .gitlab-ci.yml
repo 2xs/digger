@@ -3,16 +3,13 @@ image: "coqorg/coq:latest"
 build:
   stage: build
   script:
-    - .ci/apt-get-and-cache.sh ghc cabal-install libghc-language-c-dev libghc-wl-pprint-text-dev libghc-optparse-applicative-dev libghc-data-default-dev libghc-aeson-dev
+    - .ci/apt-get.sh ghc cabal-install libghc-language-c-dev libghc-wl-pprint-text-dev libghc-optparse-applicative-dev libghc-data-default-dev libghc-aeson-dev
     - cabal build
     - cp dist/build/digger/digger digger
-  cache:
-    paths:
-      - .ci/*-cache.tar.gz
-    when: 'always'
   artifacts:
     paths:
       - digger
+    expire_in: 1 hour
 
 test:
   stage: test
