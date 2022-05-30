@@ -1,5 +1,5 @@
 name:                digger
-version:             0.3.0.0
+version:             0.4.0.0
 synopsis:            convert "C-style" Coq code into C code or an
                      intermediate representation in Coq
 description:         Convert Coq code written in a "C-style"
