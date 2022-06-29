@@ -3,6 +3,7 @@ image: "coqorg/coq:latest"
 build:
   stage: build
   script:
+    - opam config list
     - .ci/apt-get.sh ghc cabal-install libghc-language-c-dev libghc-wl-pprint-text-dev libghc-optparse-applicative-dev libghc-data-default-dev libghc-aeson-dev
     - cabal build
     - cp dist/build/digger/digger digger
