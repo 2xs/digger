@@ -12,6 +12,7 @@ covered by CeCILL-A licence, see `LICENSE`.
 
 The development team is:
 
+*   Gilles Grimaud
 *   Samuel Hym
 *   Veïs Oudjail
 
