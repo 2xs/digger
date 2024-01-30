@@ -13,7 +13,7 @@ description:         Convert Coq code written in a "C-style"
 license:             OtherLicense
 license-file:        LICENSE
 
-author:              Samuel Hym, Veïs Oudjail
+author:              Gilles Grimaud, Samuel Hym, Veïs Oudjail
 maintainer:          samuel.hym@univ-lille.fr
 copyright:           2016-2024 Université de Lille, Veïs Oudjail
 category:            Language
