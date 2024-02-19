@@ -1,0 +1,102 @@
+{
+    "@context": [
+        "https:\/\/doi.org\/doi:10.5063\/schema\/codemeta-2.0",
+        "http:\/\/schema.org"
+    ],
+    "@type": "SoftwareSourceCode",
+    "name": "digger",
+    "description": "This repository contains a tool to convert Coq code written in a ``C-style'' (imperative style based on a monad, with full application of functions) into the corresponding C code or to an intermediate representation (deep) output as Coq source code. It starts from the Coq code extracted as JSON by the internal extraction facility.",
+    "dateCreated": "2016-10-03",
+    "datePublished": "2024-01-30",
+    "license": [
+        "CeCILL Free Software License Agreement v2.1"
+    ],
+    "url": "https:\/\/hal.science\/hal-04427164",
+    "identifier": [],
+    "applicationCategory": [
+        "info"
+    ],
+    "keywords": [
+        "Computer Science",
+        "Provable Security",
+        "Security",
+        "Formal Methods"
+    ],
+    "institution": [
+        "Universit\u00e9 de Lille",
+        "CNRS"
+    ],
+    "codeRepository": "https:\/\/github.com\/2xs\/digger",
+    "relatedLink": [
+        "https:\/\/github.com\/2xs\/pipcore",
+        "https:\/\/github.com\/2xs\/pipcore-mpu"
+    ],
+    "programmingLanguage": [
+        "Haskell",
+        "C",
+        "Coq",
+        "Makefile",
+        "Shell"
+    ],
+    "runtimePlatform": [
+        "Cabal",
+        "Stack"
+    ],
+    "operatingSystem": [
+        "GNU\/Linux",
+        "MacOS"
+    ],
+    "version": "1",
+    "softwareVersion": "1.0.0",
+    "dateModified": "2024-01-30",
+    "developmentStatus": "Inactif",
+    "author": [
+        {
+            "@type": "Role",
+            "roleName": "architecture",
+            "author": {
+                "@type": "Person",
+                "@id": null,
+                "givenName": "Gilles",
+                "familyName": "Grimaud",
+                "affiliation": [
+                    {
+                        "@type": "Organization",
+                        "name": "CRIStAL"
+                    }
+                ]
+            }
+        },
+        {
+            "@type": "Role",
+            "roleName": "aut",
+            "author": {
+                "@type": "Person",
+                "@id": null,
+                "givenName": "Samuel",
+                "familyName": "Hym",
+                "affiliation": [
+                    {
+                        "@type": "Organization",
+                        "name": "CRIStAL"
+                    }
+                ]
+            }
+        },
+        {
+            "@type": "Role",
+            "roleName": "aut",
+            "author": {
+                "@type": "Person",
+                "@id": null,
+                "givenName": "Ve\u00efs",
+                "familyName": "Oudjail",
+                "affiliation": [
+                    {
+                        "@type": "Organization"
+                    }
+                ]
+            }
+        }
+    ]
+}
