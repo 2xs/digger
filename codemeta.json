@@ -1,7 +1,6 @@
 {
     "@context": [
-        "https:\/\/doi.org\/doi:10.5063\/schema\/codemeta-2.0",
-        "http:\/\/schema.org"
+        "https:\/\/doi.org\/10.5063\/schema\/codemeta-2.0"
     ],
     "@type": "SoftwareSourceCode",
     "name": "digger",
@@ -9,7 +8,7 @@
     "dateCreated": "2016-10-03",
     "datePublished": "2024-01-30",
     "license": [
-        "CeCILL Free Software License Agreement v2.1"
+        "https://spdx.org/licenses/CECILL-2.1"
     ],
     "url": "https:\/\/hal.science\/hal-04427164",
     "identifier": [],
@@ -21,10 +20,6 @@
         "Provable Security",
         "Security",
         "Formal Methods"
-    ],
-    "institution": [
-        "Universit\u00e9 de Lille",
-        "CNRS"
     ],
     "codeRepository": "https:\/\/github.com\/2xs\/digger",
     "relatedLink": [
@@ -52,51 +47,36 @@
     "developmentStatus": "Inactif",
     "author": [
         {
-            "@type": "Role",
-            "roleName": "architecture",
-            "author": {
-                "@type": "Person",
-                "@id": null,
-                "givenName": "Gilles",
-                "familyName": "Grimaud",
-                "affiliation": [
-                    {
-                        "@type": "Organization",
-                        "name": "CRIStAL"
-                    }
-                ]
-            }
+            "@type": "Person",
+            "givenName": "Gilles",
+            "familyName": "Grimaud",
+            "affiliation": [
+                {
+                    "@type": "Organization",
+                    "name": "CRIStAL"
+                }
+            ]
         },
         {
-            "@type": "Role",
-            "roleName": "aut",
-            "author": {
-                "@type": "Person",
-                "@id": null,
-                "givenName": "Samuel",
-                "familyName": "Hym",
-                "affiliation": [
-                    {
-                        "@type": "Organization",
-                        "name": "CRIStAL"
-                    }
-                ]
-            }
+            "@type": "Person",
+            "givenName": "Samuel",
+            "familyName": "Hym",
+            "affiliation": [
+                {
+                    "@type": "Organization",
+                    "name": "CRIStAL"
+                }
+            ]
         },
         {
-            "@type": "Role",
-            "roleName": "aut",
-            "author": {
-                "@type": "Person",
-                "@id": null,
-                "givenName": "Ve\u00efs",
-                "familyName": "Oudjail",
-                "affiliation": [
-                    {
-                        "@type": "Organization"
-                    }
-                ]
-            }
+            "@type": "Person",
+            "givenName": "Ve\u00efs",
+            "familyName": "Oudjail",
+            "affiliation": [
+                {
+                    "@type": "Organization"
+                }
+            ]
         }
     ]
 }
